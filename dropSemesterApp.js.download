@@ -1,0 +1,21 @@
+
+var dropSemesterApp = angular.module('dropSemesterApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.dropSemester', {
+                url: '/dropSemester',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/dropSemester/dropSemesterView.html',
+                        controller: 'dropSemesterController'},
+                },
+                resolve: {
+                    dropSemesterController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/dropSemester/dropSemesterController.js']);
+                        }]
+                }
+            })
+
+    })

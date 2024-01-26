@@ -1,0 +1,21 @@
+
+var noticesApp = angular.module('noticesApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.notices', {
+                url: '/notices',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/notices/noticesView.html',
+                        controller: 'noticesController'}
+                },
+                resolve: {
+                    noticesController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/notices/noticesController.js']);
+                        }]
+                }
+            })
+
+    })

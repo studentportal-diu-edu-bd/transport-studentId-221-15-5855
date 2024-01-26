@@ -1,0 +1,133 @@
+
+var profileUpdateApp = angular.module('profileUpdateApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.profileUpdate', {
+                url: '/profileUpdate',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/profileUpdate/profileUpdateView.html',
+                        controller: 'profileUpdateController'}
+                },
+                resolve: {
+                    profileUpdateController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/profileUpdateController.js']);
+                        }]
+                }
+            })
+
+            .state('module.profileUpdate.personal', {
+                url: '/personal',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/personal/personalView.html',
+                        controller: 'profileUpdatePersonalController'},
+                },
+                resolve: {
+                    profileUpdatePersonalController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/personal/personalController.js']);
+
+                        }]
+                }
+            })
+
+            .state('module.profileUpdate.guardian', {
+                url: '/guardian',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/guardian/guardianView.html',
+                        controller: 'profileUpdateGuardianController'},
+                },
+                resolve: {
+                    profileUpdateGuardianController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/guardian/guardianController.js']);
+
+                        }]
+                }
+            })
+
+            .state('module.profileUpdate.address', {
+                url: '/address',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/address/addressView.html',
+                        controller: 'profileUpdateAddressController'},
+                },
+                resolve: {
+                    profileUpdateAddressController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/address/addressController.js']);
+
+                        }]
+                }
+            })
+
+            .state('module.profileUpdate.education', {
+                url: '/education',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/education/educationView.html',
+                        controller: 'profileUpdateEducationController'},
+                },
+                resolve: {
+                    profileUpdateEducationController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/education/educationController.js']);
+
+                        }]
+                }
+            })
+            .state('module.profileUpdate.photo', {
+                url: '/photo',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/photo/photoView.html',
+                        controller: 'profileUpdatePhotoController'},
+                },
+                resolve: {
+                    profileUpdatePhotoController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/photo/photoController.js']);
+
+                        }]
+                }
+            })
+            .state('module.profileUpdate.insurance', {
+                url: '/insurance',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/insurance/insuranceView.html',
+                        controller: 'profileUpdateInsuranceController'},
+                },
+                resolve: {
+                    profileUpdateInsuranceController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/insurance/insuranceController.js']);
+
+                        }]
+                }
+            })
+
+           /* .state('module.profileUpdate.passwordChange', {
+                url: '/passwordChange',
+                views: {
+                    'ProfileUpdateContent@module.profileUpdate': {
+                        templateUrl: 'module/profileUpdate/passwordChange/passwordChangeView.html',
+                        controller: 'profileUpdatePasswordChangeController'},
+                },
+                resolve: {
+                    profileUpdatePasswordChangeController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profileUpdate/passwordChange/passwordChangeController.js']);
+
+                        }]
+                }
+            })*/
+
+
+
+    })

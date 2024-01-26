@@ -1,0 +1,53 @@
+
+
+var interceptorApp = angular.module('interceptorApp', [])
+
+    .factory('APIInterceptor', ['$location', '$q', '$injector','$rootScope','authenticationService',
+        function ($location, $q, $injector,$rootScope,authenticationService) {
+            return {
+                'request': function (config) {
+                    var deferred = $q.defer();
+                    deferred.resolve(config);
+                    /*console.log(toState.name);
+                     event.preventDefault();
+                     var stateService = $injector.get('$state');
+                     stateService.go('index.login', {}, {reload: true});
+                     config.headers['accessToken']=authenticationService.getAccessToken() ;  */
+                    return deferred.promise;
+
+                },
+
+                'requestError': function (rejection) {
+                    console.log("requestError");
+                    return $q.reject(rejection);
+                },
+
+                'response': function (resp) {
+                    //return $q.reject(response);
+                    //console.log($injector.get('$state').current.name);
+                    return resp;
+                },
+
+                'responseError': function (rejection) {
+                    console.log("responseError");
+                    console.log(rejection);
+                    var deferred = $q.defer();
+
+                    if (rejection.status === 401) {
+                        console.log("Unauthorized");
+                        $rootScope.$broadcast('Unauthorized',{});
+                    }
+
+                    if (rejection.status === 403) {
+                        console.log("Forbidden");
+                        $rootScope.$broadcast('Forbidden',{});
+                    }
+
+                    deferred.resolve(rejection);
+                    return deferred.promise;
+                }
+            }
+        }])
+
+
+

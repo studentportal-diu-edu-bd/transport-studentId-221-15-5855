@@ -1,0 +1,21 @@
+
+var mentorMeetingApp = angular.module('mentorMeetingApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.mentorMeeting', {
+                url: '/mentorMeeting',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/mentorMeeting/mentorMeetingView.html',
+                        controller: 'mentorMeetingController'}
+                },
+                resolve: {
+                    mentorMeetingController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/mentorMeeting/mentorMeetingController.js']);
+                        }]
+                }
+            })
+
+    })

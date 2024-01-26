@@ -1,0 +1,40 @@
+angular.module('busPassCardVerificationApp')
+    .controller('busPassCardVerificationController',
+        ['$scope', '$rootScope', '$stateParams', '$log', '$http', 'Notification', 'authenticationService', '$location',
+            function ($scope, $rootScope, $stateParams, $log, $http, Notification, authenticationService,  $location) {
+
+                var params = $location.search();
+                $scope.studentId = '';
+                $scope.student = {};
+
+                $scope.checking = function (studentId) {
+                    $http({
+                        method: 'GET',
+                        url: $rootScope.rest + '/bus/verify',
+                        params: {'studentId':studentId},
+                        paramSerializer: '$httpParamSerializerJQLike',
+                        data: {},
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        responseType: 'json'
+                    }).success(function (response, status, headers, config) {
+                        $scope.student = response;
+                    });
+                }
+                var init = function () {
+                    if(params.studentId){
+                        $scope.studentId = params.studentId;
+                        $scope.checking(params.studentId);
+                    }
+                };
+                init();
+
+                $scope.searchStudent = function (){
+                    $scope.checking($scope.studentId);
+                }
+
+
+
+
+            }])

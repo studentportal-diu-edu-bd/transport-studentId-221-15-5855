@@ -1,0 +1,21 @@
+
+var paymentLedgerApp = angular.module('paymentLedgerApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.paymentLedger', {
+                url: '/paymentLedger',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/paymentLedger/paymentLedgerView.html',
+                        controller: 'paymentLedgerController'}
+                },
+                resolve: {
+                    paymentLedgerController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/paymentLedger/paymentLedgerController.js']);
+                        }]
+                }
+            })
+
+    })

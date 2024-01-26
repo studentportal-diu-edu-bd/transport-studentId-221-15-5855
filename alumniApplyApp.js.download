@@ -1,0 +1,20 @@
+var alumniApplyApp = angular.module('alumniApplyApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.alumniApply', {
+                url: '/alumniApply',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/alumniApply/alumniApplyView.html',
+                        controller: 'alumniApplyController'}
+                },
+                resolve: {
+                    alumniApplyController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/alumniApply/alumniApplyController.js']);
+                        }]
+                }
+            })
+
+    })

@@ -1,0 +1,21 @@
+
+var routineApp = angular.module('routineApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.routine', {
+                url: '/routine',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/routine/routineView.html',
+                        controller: 'routineController'}
+                },
+                resolve: {
+                    routineController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/routine/routineController.js']);
+                        }]
+                }
+            })
+
+    })

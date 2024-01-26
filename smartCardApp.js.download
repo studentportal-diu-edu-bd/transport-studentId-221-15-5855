@@ -1,0 +1,21 @@
+
+var smartCardApp = angular.module('smartCardApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.smartCard', {
+                url: '/smartCard',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/smartCard/smartCardView.html',
+                        controller: 'smartCardController'}
+                },
+                resolve: {
+                    smartCardController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/smartCard/smartCardController.js']);
+                        }]
+                }
+            })
+
+    })

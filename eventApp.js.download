@@ -1,0 +1,38 @@
+
+
+
+var eventApp = angular.module('eventApp', [])
+    .run(
+        ['$rootScope', '$state', '$stateParams','$location','authenticationService',
+            function ($rootScope, $state, $stateParams,$location,authenticationService) {
+
+
+                $rootScope.$on('Unauthorized',function(event, toState, toParams, fromState, fromParams) {
+                    console.log("unauthorized broadcasted ,so should go to module.login state");
+                    if( (toState.name != "module.login") ){
+                        console.log("on 401 request response");
+                        //authenticationService.deleteAuthentication();
+                        event.preventDefault();
+                        $state.go('module.login', {});
+                    }
+                });
+
+                $rootScope.$on('Forbidden',function(event, toState, toParams, fromState, fromParams) {
+                    console.log("Forbidden broadcasted ,so should go to module.forbidden state");
+                    if( (toState.name != "module.forbidden") ){
+                        console.log("on 403 request response");
+                        event.preventDefault();
+                        $state.go('module.forbidden', {});
+                    }
+                });
+
+                document.addEventListener("keyup", function(e) {
+                    if (e.keyCode === 27)
+                        $rootScope.$broadcast("escapePressed", e.target);
+                });
+                $rootScope.$on('escapePressed',function(event, toState, toParams, fromState, fromParams) {
+                    console.log("escapePressed");
+                });
+
+            }
+        ])

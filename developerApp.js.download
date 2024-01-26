@@ -1,0 +1,21 @@
+
+var developerApp = angular.module('developerApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.developer', {
+                url: '/developer',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/developer/developerView.html',
+                        controller: 'developerController'}
+                },
+                resolve: {
+                    developerController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/developer/developerController.js']);
+                        }]
+                }
+            })
+
+    })

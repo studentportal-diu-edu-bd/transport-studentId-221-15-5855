@@ -1,0 +1,48 @@
+
+var onlineExamApp = angular.module('onlineExamApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.onlineExam', {
+                url: '/onlineExam',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/onlineExam/onlineExamView.html',
+                        controller: 'onlineExamController'}
+                },
+                resolve: {
+                    onlineExamController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/onlineExam/onlineExamController.js']);
+                        }]
+                }
+            })
+            .state('module.onlineExam.examSheet', {
+                // for show in url
+                // url: '/examSheet?id&courseTitle',
+                // for not show in url
+                url: '/examSheet',
+                params: {
+                    courseSectionId: null,
+                    isGivenExam: null,
+                },
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/onlineExam/examSheet/examSheetView.html',
+                        controller: 'examSheetController'},
+                },
+                resolve: {
+                    convocationsClearanceController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/onlineExam/examSheet/examSheetController.js']);
+
+                        }]
+                }
+            });
+
+
+    })
+
+
+
+

@@ -1,0 +1,26 @@
+
+var busPassCardList = angular.module('busPassCardList', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.busPassCardList', {
+                url: '/bus-pass-card-list',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/busPassCardList/busPassCardView.html',
+                        controller: 'busPassCardListController'}
+                },
+                resolve: {
+                    digitalCertificateController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/busPassCardList/busPassCardListController.js']);
+                        }]
+                }
+            })
+
+
+    })
+
+
+
+

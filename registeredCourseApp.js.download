@@ -1,0 +1,21 @@
+
+var registeredCourseApp = angular.module('registeredCourseApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.registeredCourse', {
+                url: '/registeredCourse',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/registeredCourse/registeredCourseView.html',
+                        controller: 'registeredCourseController'}
+                },
+                resolve: {
+                    registeredCourseController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/registeredCourse/registeredCourseController.js']);
+                        }]
+                }
+            })
+
+    })

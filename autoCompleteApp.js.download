@@ -1,0 +1,21 @@
+
+var autoCompleteApp = angular.module('autoCompleteApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.autoComplete', {
+                url: '/autoComplete',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/autoComplete/autoCompleteView.html',
+                        controller: 'autoCompleteController'}
+                },
+                resolve: {
+                    autoCompleteController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/autoComplete/autoCompleteController.js']);
+                        }]
+                }
+            })
+
+    })

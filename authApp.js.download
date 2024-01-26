@@ -1,0 +1,116 @@
+
+
+var authApp = angular.module('authApp', [])
+    .run(
+        ['$rootScope', '$state', '$stateParams','$location','authenticationService',
+            function ($rootScope, $state, $stateParams,$location,authenticationService) {
+
+                /**
+                 authentication:{
+                      "accessToken":"e3yti-3hife-94o9tfgeuitgi"
+                      "name":  "shaiful islam",
+                      "role":["student","teacher","admin"],
+                      "deviceName":"pc"
+                  }
+                
+                 authentication:{
+                      "accessToken":"456ti-3h76e-56uyht6h"
+                      "name":  "ferdous wahid",
+                      "role":["student"],
+                      "deviceName":"pc"
+                  }
+                 */
+
+
+                /**  if user has dashboardRole then he can see dashboard
+                 *   if user has systemAdmin or superAdmin or developer role then he can see everything
+                 * */
+                $rootScope.hasRole=function(roleName){
+                    var flag=false
+                    /*if(roleName=="any"){
+                     flag=true;
+                     return flag;
+                     }*/
+                    angular.forEach(authenticationService.getRoles(), function(value, key) {
+                        //console.log(value);
+                        if(value == "systemAdmin" || value== "superAdmin" || value == "developer"){
+                            flag=true;
+                            return flag;
+                        }
+                        else if(value==roleName){
+                            flag=true;
+                            return flag;
+                        }
+                    });
+                    return flag;
+                };
+
+                $rootScope.isLoggedin=function(){
+                    var flag=false;
+                    if(authenticationService.getAuthentication()==null){
+                        $rootScope.isLoggedin=false;
+                        flag=false;
+                    }else{
+                        $rootScope.isLoggedin=true;
+                        flag=true;
+                    }
+                    return flag;
+                };
+            }
+        ])
+
+    .factory('authenticationService', ['$location', '$q', '$injector','$rootScope',
+        function ($location, $q, $injector,$rootScope) {
+            var factory = {};
+
+            factory.saveAuthentication = function(authentication) {
+                localStorage.setItem("authentication", authentication);
+            };
+
+            factory.deleteAuthentication = function() {
+                localStorage.removeItem("authentication");
+            };
+
+            factory.getAuthentication = function() {
+                if(localStorage.getItem("authentication") == undefined){
+                    return null;
+                }else{
+                    return localStorage.getItem("authentication");
+                }
+            };
+
+            factory.getRoles = function() {
+                if(localStorage.getItem("authentication") == undefined){
+                    return null;
+                }else{
+                    var t=JSON.parse(localStorage.getItem("authentication")).commaSeparatedRoles;
+                    return t.split(",");
+                }
+            };
+
+            factory.getAccessToken = function() {
+                if(localStorage.getItem("authentication") == undefined){
+                    return null;
+                }else{
+                    return JSON.parse(localStorage.getItem("authentication")).accessToken;
+                }
+            };
+
+            factory.getLoggedinName = function() {
+                if(localStorage.getItem("authentication") == undefined){
+                    return null;
+                }else{
+                    return JSON.parse(localStorage.getItem("authentication")).name;
+                }
+            };
+            factory.getLoggedinUserName = function() {
+                if(localStorage.getItem("authentication") == undefined){
+                    return null;
+                }else{
+                    return JSON.parse(localStorage.getItem("authentication")).userName;
+                }
+            };
+            return factory;
+        }]);
+
+

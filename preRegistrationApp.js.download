@@ -1,0 +1,21 @@
+
+var preRegistrationApp = angular.module('preRegistrationApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.preRegistration', {
+                url: '/preRegistration',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/preRegistration/preRegistrationView.html',
+                        controller: 'preRegistrationController'}
+                },
+                resolve: {
+                    preRegistrationController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/preRegistration/preRegistrationController.js']);
+                        }]
+                }
+            })
+
+    })

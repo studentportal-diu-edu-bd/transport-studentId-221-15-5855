@@ -1,0 +1,14 @@
+
+
+
+var themeApp = angular.module('themeApp', ['ngMaterial'])
+    .config(function($mdThemingProvider,$mdAriaProvider) {
+        $mdThemingProvider.theme('customTheme')
+            .primaryPalette('grey')
+            .accentPalette('orange')
+            .warnPalette('red');
+
+        $mdAriaProvider.disableWarnings();
+    });
+
+

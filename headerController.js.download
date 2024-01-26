@@ -1,0 +1,31 @@
+
+angular.module('moduleApp')
+    .controller('headerController',
+    ['$scope','$rootScope','$state','$stateParams','$log', '$http','authenticationService','$mdSidenav','$filter',
+        function($scope,$rootScope, $state,$stateParams, $log,$http,authenticationService,$mdSidenav,$filter) {
+
+            $scope.markCurrentState=function(stateName){
+                //{'markState': stateRoot.current.name == 'module.certificateVerify' ,
+                // 'unMarkState': stateRoot.current.name != 'module.certificateVerify'}"
+                if($state.current.name==stateName){
+                    return "markState"
+                }
+            }
+
+            $scope.toggleLeft = buildToggler('left')
+
+            function buildToggler(componentId) {
+                return function () {
+                    $mdSidenav(componentId).toggle()
+                }
+            }
+            $scope.close = function () {
+                $mdSidenav('left').close();
+            };
+
+
+
+
+        }]);
+
+

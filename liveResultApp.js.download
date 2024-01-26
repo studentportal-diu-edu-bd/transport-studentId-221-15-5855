@@ -1,0 +1,21 @@
+
+var liveResultApp = angular.module('liveResultApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.liveResult', {
+                url: '/liveResult',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/liveResult/liveResultView.html',
+                        controller: 'liveResultController'}
+                },
+                resolve: {
+                    liveResultController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/liveResult/liveResultController.js']);
+                        }]
+                }
+            })
+
+    })

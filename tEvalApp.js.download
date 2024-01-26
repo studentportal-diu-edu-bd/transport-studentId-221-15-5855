@@ -1,0 +1,21 @@
+
+var tEvalApp = angular.module('tEvalApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.tEval', {
+                url: '/teachingEvaluation',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/teval/tEvalView.html',
+                        controller: 'tEvalController'}
+                },
+                resolve: {
+                    tEvalController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/teval/tEvalController.js']);
+                        }]
+                }
+            })
+
+    })

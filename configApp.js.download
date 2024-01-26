@@ -1,0 +1,31 @@
+var configApp = angular.module('configApp', [])
+    /*.config(function($mdAriaProvider) {
+        $mdAriaProvider.disableWarnings();
+    })*/
+    .run(
+        ['$rootScope', '$state', '$stateParams', '$location',
+            function ($rootScope, $state, $stateParams, $location) {
+
+                $rootScope.name = null;
+                $rootScope.userName = null;
+
+                $rootScope.stateRoot = $state;
+                $rootScope.stateParamsRoot = $stateParams;
+
+                $rootScope.cdnLocMentoring = 'http://cdn.diu.edu.bd/mentoring';
+
+                $rootScope.profile = 'prod';
+
+                $rootScope.appName = 'Student Portal';
+                $rootScope.isLoggedin = false;
+
+                // $rootScope.rest = $rootScope.profile == "dev" ? 'http://gateway.diu.edu.bd:8099':
+                $rootScope.rest = $rootScope.profile == "dev" ? 'http://localhost:8189':
+                    $rootScope.profile == "prod" ? 'http://software.diu.edu.bd:8189' : 'UndefineProfileNoWhereToGo';
+
+                $rootScope.googleRecaptchaPublicKey =
+                    $rootScope.profile == "dev" ? '6LdtBSQUAAAAAEdEEObPVJNpGj9oDowHose7vyCx' :
+                        $rootScope.profile == "prod" ? '6LeJAiQUAAAAAPYIQK3CnL7y6gOJYjllORH2eZVL' : '';
+
+            }
+        ]);

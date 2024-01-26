@@ -1,0 +1,37 @@
+var loginoutApp = angular.module('loginoutApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.login', {
+                url: '/login',
+                views: {
+                    'content@module' : {  templateUrl: 'module/loginout/loginView.html',
+                        controller: 'loginController'}
+                },
+                resolve: {
+                    loginController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/loginout/loginController.js']);
+                        }]
+                }
+            })
+
+            .state('module.logout', {
+                url: '/logout',
+                views: {
+                    'content@module' : {
+                        templateUrl: 'module/loginout/logoutView.html',
+                        controller: 'logoutController' }
+                },
+                resolve: {
+                    logoutController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/loginout/logoutController.js']);
+                        }]
+                }
+
+            })
+
+    })
+
+

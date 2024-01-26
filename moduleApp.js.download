@@ -1,0 +1,61 @@
+
+var moduleApp = angular.module('moduleApp', ['ngSanitize', 'vcRecaptcha',
+    'configApp', 'eventApp', 'stateChangeApp', 'stateDataApp', 'themeApp',
+    'ui.router', 'oc.lazyLoad', 'ngAnimate', 'ngAria', 'ngMaterial',
+    'ui-notification', 'highcharts-ng', 'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns',
+    'ui.grid.moveColumns', 'authApp', 'breadcrumbApp', 'checklist-model', 'directiveApp',
+    'interceptorApp', 'loginoutApp', 'dashboardApp', 'certificateVerifyApp',
+    'courseRegistrationApp', 'dropSemesterApp', 'passwordChangeApp', 'paymentLedgerApp',
+    'preRegistrationApp', 'profileApp', 'profileUpdateApp', 'resultApp', 'tEvalApp',
+    'paymentSchemeApp', 'smartCardApp', 'liveResultApp', 'ngFileUpload',
+    'registeredCourseApp', 'resetPasswordApp', 'convocationApplyApp', 'counsellingApp',
+    'laptopApp','mentorMeetingApp', 'autoCompleteApp','routineApp','developerApp','noticesApp',
+    'documentApplyApp','convocationsApplyApp', 'alumniApplyApp', 'alumniProfessionalApp','onlineExamApp','digitalCertificateApp','digitalCertificateList',
+    'busPassCardApp','busPassCardList','busPassCardVerificationApp',
+    'accountsClearanceApp', 'semesterPaymentApp',/*new module app will be added here*/
+]);
+
+moduleApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+
+    $urlRouterProvider
+    //.when('', '/login')
+    //.when('/', '/login')
+    //.when('/?app', '/certificateVerify')
+        .when('/', ['$state', function ($state) {
+            //$state.go('module', {});
+            ///?app=certificateVerify
+            //console.log("stale /");
+            //console.log("redirecting.........");
+            $state.go('module.login', {}, {reload: true});
+        }])
+        .otherwise('/404');
+
+    $stateProvider
+        .state('module', {
+            url: '',
+            views: {
+                '@': {templateUrl: 'app/layout/layout.html'},
+                'header@module': {templateUrl: 'app/layout/header.html', controller: 'headerController'},
+                'content@module': {templateUrl: 'app/layout/content.html'},
+                'footer@module': {templateUrl: 'app/layout/footer.html'},
+            }
+        })
+
+        .state('module.notFound', {
+            url: '/404',
+            views: {
+                'content@module': {template: '<h2 style="text-align: center; color: #ef5350">Requested Resource Not Found!</h2>'},
+            },
+        })
+        .state('module.forbidden', {
+            url: '/forbidden',
+            views: {
+                'content@module': {template: '<h2 style="text-align: center; color: #ef5350">Sorry, you do not have access to this area!</h2>'},
+            },
+        })
+
+    $httpProvider.interceptors.push('APIInterceptor');
+
+
+})
+

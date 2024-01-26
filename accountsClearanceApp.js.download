@@ -1,0 +1,21 @@
+
+var accountsClearanceApp = angular.module('accountsClearanceApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.accountsClearance', {
+                url: '/accountsClearance',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/accountsClearance/accountsClearanceView.html',
+                        controller: 'accountsClearanceController'}
+                },
+                resolve: {
+                    accountsClearanceController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/accountsClearance/accountsClearanceController.js']);
+                        }]
+                }
+            })
+
+    })

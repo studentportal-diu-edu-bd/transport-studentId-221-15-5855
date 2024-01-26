@@ -1,0 +1,21 @@
+
+var resultApp = angular.module('resultApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.result', {
+                url: '/result',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/result/resultView.html',
+                        controller: 'resultController'}
+                },
+                resolve: {
+                    resultController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/result/resultController.js']);
+                        }]
+                }
+            })
+
+    })

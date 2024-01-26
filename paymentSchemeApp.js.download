@@ -1,0 +1,21 @@
+
+var paymentSchemeApp = angular.module('paymentSchemeApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.paymentScheme', {
+                url: '/paymentScheme',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/paymentScheme/paymentSchemeView.html',
+                        controller: 'paymentSchemeController'}
+                },
+                resolve: {
+                    paymentSchemeController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/paymentScheme/paymentSchemeController.js']);
+                        }]
+                }
+            })
+
+    })

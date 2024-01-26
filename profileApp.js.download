@@ -1,0 +1,26 @@
+
+
+var profileApp = angular.module('profileApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.profile', {
+                url: '/profile',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/profile/profileView.html',
+                        controller: 'profileController'}
+                },
+                resolve: {
+                    profileController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/profile/profileController.js']);
+                        }]
+                }
+            })
+
+    })
+
+
+
+

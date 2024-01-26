@@ -1,0 +1,20 @@
+var alumniProfessionalApp = angular.module('alumniProfessionalApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.alumniProfessional', {
+                url: '/alumniProfessional',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/alumniProfessional/alumniProfessionalView.html',
+                        controller: 'alumniProfessionalController'}
+                },
+                resolve: {
+                    alumniProfessionalController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/alumniProfessional/alumniProfessionalController.js']);
+                        }]
+                }
+            })
+
+    })

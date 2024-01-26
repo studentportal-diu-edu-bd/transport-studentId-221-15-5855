@@ -1,0 +1,29 @@
+var counsellingApp = angular.module('counsellingApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+        $stateProvider
+            .state('module.counselling', {
+                url: '/counselling',
+                views: {
+                    'content@module' : {
+                        templateUrl: 'module/counselling/counsellingView.html',
+                        controller: 'counsellingController'
+                    }
+                },
+                resolve: {
+                    depsParent: [
+                        '$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load( {
+                                name: 'counsellingController',
+                                files: ['module/counselling/counsellingService.js',
+                                    'module/counselling/counsellingController.js']
+                            }, {serie: true});
+                        }
+                    ]
+                }
+
+
+
+
+            });
+    });
+

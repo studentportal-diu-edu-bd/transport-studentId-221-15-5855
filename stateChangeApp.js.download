@@ -1,0 +1,49 @@
+
+
+
+var stateChangeApp = angular.module('stateChangeApp', [])
+    .run(
+        ['$rootScope', '$state', '$stateParams','$location','authenticationService',
+            function ($rootScope, $state, $stateParams,$location,authenticationService) {
+
+
+                $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams) {
+
+
+
+                    if((authenticationService.getAccessToken() != null) && ((toState.name == "module.login") || (toState.name == "module.index"))){
+
+                        // console.log("go to deshboard");
+                        event.preventDefault();
+                        $state.go('module.dashboard', {}, {reload: true});
+                    }
+
+
+                    if((authenticationService.getAccessToken() != null)){
+                        // console.log("have AccessToken........$stateChangeStart");
+                        $rootScope.isLoggedin = true;
+                        $rootScope.name = authenticationService.getLoggedinName();
+                        $rootScope.userName = authenticationService.getLoggedinUserName();
+
+                    }else{
+                        // console.log(" not have AccessToken......$stateChangeStart");
+                        $rootScope.isLoggedin = false;
+                        $rootScope.name = null;
+                        $rootScope.userName = null;
+                    }
+
+                });
+
+
+                $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams) {
+                    /*
+                     event.preventDefault();
+                     $state.go('stateName', {}, {reload: true});
+                     */
+                });
+            }
+        ])
+
+
+
+

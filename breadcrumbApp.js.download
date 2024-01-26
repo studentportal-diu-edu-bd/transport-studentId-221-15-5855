@@ -1,0 +1,18 @@
+
+
+
+var breadcrumbApp = angular.module('breadcrumbApp', [])
+    .run(
+        ['$rootScope', '$state', '$stateParams','$location',
+            function ($rootScope, $state, $stateParams,$location ) {
+                $rootScope.isParentOfCurrentStateRoot =function(stateName){
+                    return stateName.includes($state.current.name);
+                }
+
+            }
+        ])
+
+
+
+
+

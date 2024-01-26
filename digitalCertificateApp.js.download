@@ -1,0 +1,26 @@
+
+var digitalCertificateApp = angular.module('digitalCertificateApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.digitalCertificate', {
+                url: '/digital-certificate',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/digitalCertificate/digitalCertificateView.html',
+                        controller: 'digitalCertificateController'}
+                },
+                resolve: {
+                    digitalCertificateController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/digitalCertificate/digitalCertificateController.js']);
+                        }]
+                }
+            })
+
+
+    })
+
+
+
+

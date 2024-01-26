@@ -1,0 +1,16 @@
+
+
+
+var stateDataApp = angular.module('stateDataApp', [])
+.run(
+    ['$rootScope', '$state', '$stateParams','$location',
+        function ($rootScope, $state, $stateParams,$location) {
+
+            $rootScope.stateDataRoot = {
+                module:{
+                    dashboard:{},
+                    login:{}
+                }
+            };
+
+    }])

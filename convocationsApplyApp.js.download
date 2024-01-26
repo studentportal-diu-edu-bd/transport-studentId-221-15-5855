@@ -1,0 +1,41 @@
+
+var convocationsApplyApp = angular.module('convocationsApplyApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.convocationsApply', {
+                url: '/convocation-apply',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/convocationsApply/convocationsApplyView.html',
+                        controller: 'convocationsApplyController'}
+                },
+                resolve: {
+                    convocationsApplyController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/convocationsApply/convocationsApplyController.js']);
+                        }]
+                }
+            })
+            .state('module.convocationsApply.convocationsClearance', {
+                url: '/convocationsClearance',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/convocationsApply/convocationsClearance/convocationsClearanceView.html',
+                        controller: 'convocationsClearanceController'},
+                },
+                resolve: {
+                    convocationsClearanceController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/convocationsApply/convocationsClearance/convocationsClearanceController.js']);
+
+                        }]
+                }
+            })
+
+
+    })
+
+
+
+

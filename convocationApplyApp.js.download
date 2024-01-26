@@ -1,0 +1,25 @@
+
+var convocationApplyApp = angular.module('convocationApplyApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.convocationApply', {
+                url: '/convocationApply',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/convocationApply/convocationApplyView.html',
+                        controller: 'convocationApplyController'}
+                },
+                resolve: {
+                    convocationApplyController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/convocationApply/convocationApplyController.js']);
+                        }]
+                }
+            })
+
+    })
+
+
+
+

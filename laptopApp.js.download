@@ -1,0 +1,21 @@
+
+var laptopApp = angular.module('laptopApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.laptop', {
+                url: '/laptop',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/laptop/laptopView.html',
+                        controller: 'laptopController'}
+                },
+                resolve: {
+                    laptopController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/laptop/laptopController.js']);
+                        }]
+                }
+            })
+
+    })

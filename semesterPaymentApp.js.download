@@ -1,0 +1,21 @@
+
+var semesterPaymentApp = angular.module('semesterPaymentApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.semesterPayment', {
+                url: '/semesterPayment',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/semesterPayment/semesterPaymentView.html',
+                        controller: 'semesterPaymentController'}
+                },
+                resolve: {
+                    semesterPaymentController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/semesterPayment/semesterPaymentController.js']);
+                        }]
+                }
+            })
+
+    })

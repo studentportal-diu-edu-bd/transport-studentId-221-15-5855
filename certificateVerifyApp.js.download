@@ -1,0 +1,21 @@
+
+var certificateVerifyApp = angular.module('certificateVerifyApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.certificateVerify', {
+                url: '/certificateVerify',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/certificateVerify/certificateVerifyView.html',
+                        controller: 'certificateVerifyController'}
+                },
+                resolve: {
+                    certificateVerifyController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/certificateVerify/certificateVerifyController.js']);
+                        }]
+                }
+            })
+
+    })

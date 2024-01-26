@@ -1,0 +1,41 @@
+
+var documentApplyApp = angular.module('documentApplyApp', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.documentApply', {
+                url: '/documentApply',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/documentApply/documentApplyView.html',
+                        controller: 'documentApplyController'}
+                },
+                resolve: {
+                    documentApplyController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/documentApply/documentApplyController.js']);
+                        }]
+                }
+            })
+
+            .state('module.documentApply.documentClearanceCard', {
+                url: '/:documentClearanceCard?applicationId',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/documentApply/documentClearanceCard/documentClearanceCardView.html',
+                        controller: 'documentClearanceCardController'},
+                },
+                resolve: {
+                    documentClearanceCardController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/documentApply/documentClearanceCard/documentClearanceCardController.js']);
+
+                        }]
+                }
+            })
+
+    })
+
+
+
+

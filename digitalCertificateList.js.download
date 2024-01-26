@@ -1,0 +1,26 @@
+
+var digitalCertificateList = angular.module('digitalCertificateList', [])
+    .config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+
+        $stateProvider
+            .state('module.digitalCertificateList', {
+                url: '/digital-certificate-list',
+                views: {
+                    'content@module': {
+                        templateUrl: 'module/digitalCertificateList/digitalCertificateView.html',
+                        controller: 'digitalCertificateListController'}
+                },
+                resolve: {
+                    digitalCertificateController: ['$ocLazyLoad', '$injector', '$rootScope',
+                        function ($ocLazyLoad, $injector, $rootScope) {
+                            return $ocLazyLoad.load(['module/digitalCertificateList/digitalCertificateListController.js']);
+                        }]
+                }
+            })
+
+
+    })
+
+
+
+

@@ -1,0 +1,26 @@
+var dashboardApp = angular.module('dashboardApp', [])
+
+
+.config(function($stateProvider, $urlRouterProvider,$httpProvider){
+
+    $stateProvider
+
+        .state('module.dashboard', {
+            url: '/dashboard1',
+            views: {
+                'content@module': {
+                    templateUrl: 'module/dashboard/dashboardView.html',
+                    controller: 'dashboardController'}
+            },
+            resolve: {
+                dashboardController: ['$ocLazyLoad', '$injector', '$rootScope',
+                    function ($ocLazyLoad, $injector, $rootScope) {
+                        return $ocLazyLoad.load(['module/dashboard/dashboardController.js']);
+                    }]
+            }
+
+
+        })
+
+
+});
